@@ -281,7 +281,7 @@ private struct NetworkRecordRow: View {
                 ? "checkmark.circle.fill"
                 : "circle"
             )
-            .foregroundStyle(isSelected ? .blue : .tertiary)
+            .foregroundStyle(isSelected ? Color.blue : Color.secondary)
         }
         .contentShape(Rectangle())
     }
