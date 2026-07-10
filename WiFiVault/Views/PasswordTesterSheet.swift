@@ -766,15 +766,25 @@ Button {
                     || autoConnect.isRunning
                 )
             } else {
-                ContentUnavailableView(
-                    "尚未选择候选项",
-                    systemImage: "hand.tap",
-                    description: Text(
+                VStack(spacing: 10) {
+                    Image(systemName: "hand.tap")
+                        .font(.title2)
+                        .foregroundStyle(.secondary)
+
+                    Text("尚未选择候选项")
+                        .font(.headline)
+
+                    Text(
                         "视力障碍用户可直接使用上方"
                         + "无障碍辅助填充，"
                         + "无需在风险列表中寻找密码。"
                     )
-                )
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 24)
             }
         } header: {
             Text("普通单次验证")
@@ -919,6 +929,9 @@ Button {
 
         case .exhausted:
             return "list.bullet.rectangle"
+
+        case .paused:
+            return "pause.circle.fill"
         }
     }
 
