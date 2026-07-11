@@ -1,0 +1,12 @@
+U.S. BABY NAMES DATA NOTICE
+
+Source: U.S. Social Security Administration national baby-name aggregate.
+https://www.ssa.gov/oact/babynames/limits.html
+
+The packaged extraction was prepared from us-baby-names-2 1.0.2, whose package
+metadata designates the dataset CC0-1.0:
+https://creativecommons.org/publicdomain/zero/1.0/
+
+PatternLab includes only 20,000 normalized, frequency-ranked first-name tokens.
+It includes no person-linked records, dates of birth, Social Security numbers,
+addresses, or other identity data.

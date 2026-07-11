@@ -1,0 +1,16 @@
+CC-CEDICT DATA NOTICE
+
+The pinyin_roots.txt file is a transformed derivative of CC-CEDICT data.
+CC-CEDICT is licensed under the Creative Commons Attribution-ShareAlike
+4.0 International license.
+
+Source: https://www.mdbg.net/chinese/dictionary?page=cedict
+License: https://creativecommons.org/licenses/by-sa/4.0/
+
+Changes made for PatternLab 3.0: English definitions and Chinese spellings were
+removed; pinyin was lowercased; tone numbers and separators were removed; ü/u:
+was mapped to v; entries were filtered, ranked, deduplicated, and truncated.
+
+The derived pinyin_roots.txt data is offered under CC BY-SA 4.0. No warranty is
+provided. The application code is a separate work and is not covered by this
+data notice.

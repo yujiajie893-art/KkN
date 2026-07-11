@@ -1,115 +1,55 @@
-# WiFiVault
+# PatternLab 3.0
 
-一个完全本地运行的 SwiftUI Wi‑Fi 密码管理示例应用。
+PatternLab 3.0 是一个 iOS 16+ 的纯离线密码结构教学与健康度测试工具。它把 2.5 的模式生成器与 2.4.1 中可安全复用的离线评分思路合并到一个干净的单目标工程中，同时移除网络连接、SSID 读取、自动填充与连续口令尝试链路。
 
-## 功能
+## 3.0 功能
 
-- 添加、编辑、删除 Wi‑Fi 记录
-- 按网络名称或备注搜索
-- 显示/隐藏密码
-- 一键复制当前显示的密码
-- 网络名称、备注和时间保存在 UserDefaults
-- 密码保存在 iOS Keychain
-- 不联网、不扫描网络、不读取系统 Wi‑Fi 密码
+- `PatternLabPublicPack.bundle` 内置公开资源并通过 `manifest.json` 注册、计数与 SHA-256 校验。
+- 按英文词根、拼音词根、全球城市、常见英文名或项目测试集选择生成来源。
+- 生成规则：年份、1–9999 数字后缀、有效月日、键盘相邻模式、大小写与特殊字符变体。
+- 单次上限可选 10,000、100,000、500,000 或 1,000,000 条。
+- 流式读取词根并以 256 KiB 缓冲直接写入临时 TXT；内存只保留前 200 条预览，不保留百万条结果数组。
+- 通过系统文档选择器把完整 TXT 保存到用户可访问的“文件”App。
+- 本地分析常见词根、年份、有效日期、键盘序列、重复字符与连续数字，并给出 0–100 结构评分和改进建议。
+- 输入不落盘、不保存历史、不上传。
+- 内置壁纸与可读性调节沿用 2.5 的视觉资源。
 
-## 环境
+## 内置数据
 
-- Xcode 15 或更高版本
-- iOS 16.0 或更高版本
-- SwiftUI
+| ID | 内容 | 条目 | 默认 | 分析索引 |
+| --- | --- | ---: | --- | --- |
+| `english_words` | 英文词根 | 200,000 | 开 | 是 |
+| `pinyin_roots` | 拼音词根 | 50,000 | 关 | 是 |
+| `global_cities` | 全球城市名 | 20,000 | 关 | 是 |
+| `common_names` | SSA 常见英文名 | 20,000 | 关 | 是 |
+| `keyboard_patterns` | 键盘模式 | 500 | 辅助 | 是 |
+| `test_dataset` | 项目方性能测试来源 | 187,896 | 关 | 否 |
 
-## 运行
+数据文件合计 478,396 个逻辑行、5,148,735 bytes。各文件来源、转换方式、许可证和再分发注意事项见 `WiFiVaultPatternLab/Resources/PatternLabPublicPack.bundle/ATTRIBUTIONS.md`。
 
-1. 双击 `WiFiVault.xcodeproj`
-2. 选择 `WiFiVault` Target
-3. 在 Signing & Capabilities 中选择你的 Team
-4. 如需安装到真机，将 Bundle Identifier 改成你自己的唯一标识
-5. 选择模拟器或 iPhone，点击 Run
+“GB 级资源包”和上述条目规模并不相符：这些紧凑纯文本原始数据只有约 5.15 MB，压入 IPA 后通常还会更小。工程没有为了凑 50–80 MB 人为填充无意义数据。
 
-## 说明
+## 安全边界
 
-iOS 普通第三方应用不能读取“设置”中已经保存的 Wi‑Fi 密码。本项目只管理用户手动录入的、本人拥有或获准保存的网络凭据。
+生成器和任何验证工具只允许通过用户主动导出/导入的 TXT 文件交换数据。本工程：
 
+- 不含 `NetworkExtension`；
+- 不调用 `NEHotspotConfigurationManager`；
+- 不读取 SSID、路由器信息、位置或通讯录；
+- 不含自动连接、连续验证、辅助功能填充或候选传递接口；
+- 不含泄露密码库或个人身份记录；
+- 不声明 Wi-Fi、网络、定位或 Keychain entitlement。
 
-## 安全版自动连接
+详见 `SECURITY-BOUNDARY.md`。
 
-此版本新增：
+## 验证
 
-- `AutoConnectManager.swift`
-- `AutoConnectSheet.swift`
-- 自动连接入口、进度条和停止按钮
-- 连接成功提示
-- 老人找回密码的系统引导
+```bash
+chmod +x Tools/validate-source.sh Tools/run-core-tests.sh
+./Tools/validate-source.sh
+./Tools/run-core-tests.sh
+```
 
-安全边界：
+第二个命令需要 Swift 工具链，并会实际生成 1,000,000 行临时 TXT、校验结果数与吞吐量。
 
-- 用户必须明确选择一条已经保存的 Wi-Fi 记录
-- 每次只提交这一组 SSID 与密码
-- 不扫描附近网络
-- 不运行弱密码字典
-- 不批量尝试不同凭据
-
-## Xcode 必做设置
-
-1. 选择 WiFiVault Target。
-2. 打开 Signing & Capabilities。
-3. 点击 `+ Capability`。
-4. 添加 `Hotspot Configuration`。
-5. 选择有效的开发者 Team。
-6. 使用真机测试；模拟器不能实际连接 Wi-Fi。
-
-即使项目已包含 entitlement 文件，也必须保证签名所用的
-Provisioning Profile 拥有对应能力。
-
-
-## TXT 密码强度审计
-
-新增文件：
-
-- `Services/PasswordTesterManager.swift`
-- `Views/PasswordTesterSheet.swift`
-
-功能：
-
-- 使用 SwiftUI `fileImporter` 导入 TXT
-- 每行读取一个密码
-- 自动去空行、去重
-- 最多导入 20,000 条，避免过度占用内存
-- 离线检测长度、字符类型、重复模式、常见弱密码、SSID 关联和估算熵
-- 显示当前分析项、进度百分比和停止按钮
-- 结果按风险排序
-- 日志只写入本机 Application Support
-- 日志不保存密码明文，仅保存 SHA-256 截断指纹
-- 用户可以手动选中一个候选密码，并进行一次明确的连接验证
-
-安全限制：
-
-- 不扫描附近 Wi-Fi
-- 不按 TXT 列表自动轮询连接
-- 不批量猜测密码
-- 不上传密码、结果或日志
-
-
-## 无障碍辅助填充
-
-新增：
-
-- `Services/AccessibilityAutoFillManager.swift`
-- VoiceOver 友好的候选位置播报
-- 未开启 VoiceOver 时使用 `AVSpeechSynthesizer`
-- 每 3 秒自动选择并朗读下一个候选密码
-- 每次最多载入 50 个候选
-- 可选择是否朗读密码内容
-- 可调整语速、音调和音量
-- 大尺寸固定“验证当前密码”按钮
-- VoiceOver 自定义操作：重复朗读、选择下一个
-- 连接成功后自动停止并播报
-- 失败后自动移动到下一个候选，但不会自动提交连接
-
-重要边界：
-
-候选密码可以自动朗读和切换，但每一次调用
-`NEHotspotConfigurationManager.apply` 都必须由用户明确激活
-“验证当前密码”按钮。盲人用户无需浏览或手动挑选列表，可以让
-VoiceOver 焦点停留在固定按钮上重复双击，或者使用 iOS 语音控制、
-切换控制及兼容的外接开关。
+构建和签名方法见 `BUILD-AND-INSTALL.md`。

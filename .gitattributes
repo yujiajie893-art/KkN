@@ -1,0 +1,14 @@
+*.swift text eol=lf
+*.mjs text eol=lf
+*.sh text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.plist text eol=lf
+*.xcprivacy text eol=lf
+*.xcscheme text eol=lf
+*.pbxproj text eol=lf
+*.txt -text
+*.png binary
+*.jpg binary
+*.jpeg binary

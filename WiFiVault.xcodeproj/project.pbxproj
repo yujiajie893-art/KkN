@@ -7,41 +7,60 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A10000000000000000000001 /* WiFiVaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000001 /* WiFiVaultApp.swift */; };
-		A10000000000000000000002 /* WiFiRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000002 /* WiFiRecord.swift */; };
-		A10000000000000000000003 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000003 /* KeychainService.swift */; };
-		A10000000000000000000004 /* WiFiStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000004 /* WiFiStore.swift */; };
-		A10000000000000000000005 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000005 /* ContentView.swift */; };
-		A10000000000000000000006 /* WiFiRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000006 /* WiFiRowView.swift */; };
-		A10000000000000000000007 /* WiFiFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000007 /* WiFiFormView.swift */; };
-		A10000000000000000000008 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000008 /* Assets.xcassets */; };
-		A10000000000000000000009 /* AutoConnectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000010 /* AutoConnectManager.swift */; };
-		A1000000000000000000000A /* AutoConnectSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000011 /* AutoConnectSheet.swift */; };
-		A1000000000000000000000B /* PasswordTesterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000013 /* PasswordTesterManager.swift */; };
-		A1000000000000000000000C /* PasswordTesterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000014 /* PasswordTesterSheet.swift */; };
-		A1000000000000000000000D /* AccessibilityAutoFillManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* AccessibilityAutoFillManager.swift */; };
+		A00000000000000000000001 /* WiFiVaultPatternLabApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000001 /* WiFiVaultPatternLabApp.swift */; };
+		A00000000000000000000002 /* PatternLabModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000002 /* PatternLabModels.swift */; };
+		A00000000000000000000003 /* PublicDatasetManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000003 /* PublicDatasetManifest.swift */; };
+		A00000000000000000000004 /* StableHash64.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000004 /* StableHash64.swift */; };
+		A00000000000000000000005 /* UTF8LineReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000005 /* UTF8LineReader.swift */; };
+		A00000000000000000000006 /* PatternRuleExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000006 /* PatternRuleExpander.swift */; };
+		A00000000000000000000007 /* StreamingGenerationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000007 /* StreamingGenerationEngine.swift */; };
+		A00000000000000000000008 /* CommonRootIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000008 /* CommonRootIndex.swift */; };
+		A00000000000000000000009 /* PasswordStructureAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000009 /* PasswordStructureAnalyzer.swift */; };
+		A0000000000000000000000A /* RiskScoringEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0000000000000000000000A /* RiskScoringEngine.swift */; };
+		A0000000000000000000000B /* PublicResourcePackLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0000000000000000000000B /* PublicResourcePackLoader.swift */; };
+		A0000000000000000000000C /* PatternLabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0000000000000000000000C /* PatternLabViewModel.swift */; };
+		A0000000000000000000000D /* FileExportPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0000000000000000000000D /* FileExportPicker.swift */; };
+		A0000000000000000000000E /* PatternLabRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0000000000000000000000E /* PatternLabRootView.swift */; };
+		A0000000000000000000000F /* GeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0000000000000000000000F /* GeneratorView.swift */; };
+		A00000000000000000000010 /* AnalyzerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000010 /* AnalyzerView.swift */; };
+		A00000000000000000000011 /* DataSourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000011 /* DataSourcesView.swift */; };
+		A00000000000000000000016 /* TextDatasetImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000016 /* TextDatasetImporter.swift */; };
+		A00000000000000000000017 /* FileImportPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000017 /* FileImportPicker.swift */; };
+		A00000000000000000000012 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000012 /* Assets.xcassets */; };
+		A00000000000000000000013 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000013 /* PrivacyInfo.xcprivacy */; };
+		A00000000000000000000014 /* PatternLabPublicPack.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000014 /* PatternLabPublicPack.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B10000000000000000000001 /* WiFiVaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiVaultApp.swift; sourceTree = "<group>"; };
-		B10000000000000000000002 /* WiFiRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiRecord.swift; sourceTree = "<group>"; };
-		B10000000000000000000003 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
-		B10000000000000000000004 /* WiFiStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiStore.swift; sourceTree = "<group>"; };
-		B10000000000000000000005 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		B10000000000000000000006 /* WiFiRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiRowView.swift; sourceTree = "<group>"; };
-		B10000000000000000000007 /* WiFiFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiFormView.swift; sourceTree = "<group>"; };
-		B10000000000000000000008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B10000000000000000000009 /* WiFiVault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiFiVault.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B10000000000000000000010 /* AutoConnectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoConnectManager.swift; sourceTree = "<group>"; };
-		B10000000000000000000011 /* AutoConnectSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoConnectSheet.swift; sourceTree = "<group>"; };
-		B10000000000000000000012 /* WiFiVault.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WiFiVault.entitlements; sourceTree = "<group>"; };
-		B10000000000000000000013 /* PasswordTesterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTesterManager.swift; sourceTree = "<group>"; };
-		B10000000000000000000014 /* PasswordTesterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTesterSheet.swift; sourceTree = "<group>"; };
-		B10000000000000000000015 /* AccessibilityAutoFillManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityAutoFillManager.swift; sourceTree = "<group>"; };
+		B00000000000000000000001 /* WiFiVaultPatternLabApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiVaultPatternLabApp.swift; sourceTree = "<group>"; };
+		B00000000000000000000002 /* PatternLabModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternLabModels.swift; sourceTree = "<group>"; };
+		B00000000000000000000003 /* PublicDatasetManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicDatasetManifest.swift; sourceTree = "<group>"; };
+		B00000000000000000000004 /* StableHash64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StableHash64.swift; sourceTree = "<group>"; };
+		B00000000000000000000005 /* UTF8LineReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTF8LineReader.swift; sourceTree = "<group>"; };
+		B00000000000000000000006 /* PatternRuleExpander.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternRuleExpander.swift; sourceTree = "<group>"; };
+		B00000000000000000000007 /* StreamingGenerationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingGenerationEngine.swift; sourceTree = "<group>"; };
+		B00000000000000000000008 /* CommonRootIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonRootIndex.swift; sourceTree = "<group>"; };
+		B00000000000000000000009 /* PasswordStructureAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStructureAnalyzer.swift; sourceTree = "<group>"; };
+		B0000000000000000000000A /* RiskScoringEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskScoringEngine.swift; sourceTree = "<group>"; };
+		B0000000000000000000000B /* PublicResourcePackLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicResourcePackLoader.swift; sourceTree = "<group>"; };
+		B0000000000000000000000C /* PatternLabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternLabViewModel.swift; sourceTree = "<group>"; };
+		B0000000000000000000000D /* FileExportPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExportPicker.swift; sourceTree = "<group>"; };
+		B0000000000000000000000E /* PatternLabRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternLabRootView.swift; sourceTree = "<group>"; };
+		B0000000000000000000000F /* GeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorView.swift; sourceTree = "<group>"; };
+		B00000000000000000000010 /* AnalyzerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzerView.swift; sourceTree = "<group>"; };
+		B00000000000000000000011 /* DataSourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourcesView.swift; sourceTree = "<group>"; };
+		B00000000000000000000016 /* TextDatasetImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDatasetImporter.swift; sourceTree = "<group>"; };
+		B00000000000000000000017 /* FileImportPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportPicker.swift; sourceTree = "<group>"; };
+		B00000000000000000000018 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		B00000000000000000000019 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		B00000000000000000000012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B00000000000000000000013 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		B00000000000000000000014 /* PatternLabPublicPack.bundle */ = {isa = PBXFileReference; lastKnownFileType = wrapper.plug-in; path = PatternLabPublicPack.bundle; sourceTree = "<group>"; };
+		B00000000000000000000015 /* WiFiVaultPatternLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiFiVaultPatternLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C10000000000000000000001 /* Frameworks */ = {
+		C00000000000000000000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -51,102 +70,145 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D10000000000000000000001 = {
+		D00000000000000000000001 = {
 			isa = PBXGroup;
 			children = (
-				D10000000000000000000002 /* WiFiVault */,
-				D10000000000000000000006 /* Products */,
+				D00000000000000000000003 /* WiFiVaultPatternLab */,
+				D00000000000000000000002 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		D10000000000000000000002 /* WiFiVault */ = {
+		D00000000000000000000002 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B10000000000000000000001 /* WiFiVaultApp.swift */,
-				D10000000000000000000003 /* Models */,
-				D10000000000000000000004 /* Services */,
-				D10000000000000000000005 /* Views */,
-				B10000000000000000000008 /* Assets.xcassets */,
+				B00000000000000000000015 /* WiFiVaultPatternLab.app */,
 			);
-			path = WiFiVault;
+			name = Products;
 			sourceTree = "<group>";
 		};
-		D10000000000000000000003 /* Models */ = {
+		D00000000000000000000003 /* WiFiVaultPatternLab */ = {
 			isa = PBXGroup;
 			children = (
-				B10000000000000000000002 /* WiFiRecord.swift */,
+				B00000000000000000000001 /* WiFiVaultPatternLabApp.swift */,
+				D00000000000000000000004 /* Models */,
+				D00000000000000000000005 /* Core */,
+				D00000000000000000000006 /* Services */,
+				D00000000000000000000009 /* Import */,
+				D00000000000000000000007 /* Views */,
+				D00000000000000000000008 /* Resources */,
+				D0000000000000000000000A /* Config */,
+				B00000000000000000000012 /* Assets.xcassets */,
+				B00000000000000000000013 /* PrivacyInfo.xcprivacy */,
+			);
+			path = WiFiVaultPatternLab;
+			sourceTree = "<group>";
+		};
+		D00000000000000000000004 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B00000000000000000000002 /* PatternLabModels.swift */,
+				B00000000000000000000003 /* PublicDatasetManifest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		D10000000000000000000004 /* Services */ = {
+		D00000000000000000000005 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				B10000000000000000000003 /* KeychainService.swift */,
-				B10000000000000000000004 /* WiFiStore.swift */,
-				B10000000000000000000010 /* AutoConnectManager.swift */,
-				B10000000000000000000013 /* PasswordTesterManager.swift */,
-				B10000000000000000000015 /* AccessibilityAutoFillManager.swift */,
+				B00000000000000000000004 /* StableHash64.swift */,
+				B00000000000000000000005 /* UTF8LineReader.swift */,
+				B00000000000000000000006 /* PatternRuleExpander.swift */,
+				B00000000000000000000007 /* StreamingGenerationEngine.swift */,
+				B00000000000000000000008 /* CommonRootIndex.swift */,
+				B00000000000000000000009 /* PasswordStructureAnalyzer.swift */,
+				B0000000000000000000000A /* RiskScoringEngine.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		D00000000000000000000006 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B0000000000000000000000B /* PublicResourcePackLoader.swift */,
+				B0000000000000000000000C /* PatternLabViewModel.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		D10000000000000000000005 /* Views */ = {
+		D00000000000000000000007 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B10000000000000000000005 /* ContentView.swift */,
-				B10000000000000000000006 /* WiFiRowView.swift */,
-				B10000000000000000000007 /* WiFiFormView.swift */,
-				B10000000000000000000011 /* AutoConnectSheet.swift */,
-				B10000000000000000000014 /* PasswordTesterSheet.swift */,
+				B0000000000000000000000D /* FileExportPicker.swift */,
+				B0000000000000000000000E /* PatternLabRootView.swift */,
+				B0000000000000000000000F /* GeneratorView.swift */,
+				B00000000000000000000010 /* AnalyzerView.swift */,
+				B00000000000000000000011 /* DataSourcesView.swift */,
+				B00000000000000000000017 /* FileImportPicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		D10000000000000000000006 /* Products */ = {
+		D00000000000000000000009 /* Import */ = {
 			isa = PBXGroup;
 			children = (
-				B10000000000000000000009 /* WiFiVault.app */,
+				B00000000000000000000016 /* TextDatasetImporter.swift */,
 			);
-			name = Products;
+			path = Import;
+			sourceTree = "<group>";
+		};
+		D00000000000000000000008 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B00000000000000000000014 /* PatternLabPublicPack.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D0000000000000000000000A /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				B00000000000000000000018 /* Debug.xcconfig */,
+				B00000000000000000000019 /* Release.xcconfig */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E10000000000000000000001 /* WiFiVault */ = {
+		E00000000000000000000001 /* WiFiVaultPatternLab */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F10000000000000000000002 /* Build configuration list for PBXNativeTarget "WiFiVault" */;
+			buildConfigurationList = F00000000000000000000002 /* Build configuration list for PBXNativeTarget "WiFiVaultPatternLab" */;
 			buildPhases = (
-				C10000000000000000000002 /* Sources */,
-				C10000000000000000000001 /* Frameworks */,
-				C10000000000000000000003 /* Resources */,
+				C00000000000000000000002 /* Sources */,
+				C00000000000000000000001 /* Frameworks */,
+				C00000000000000000000003 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = WiFiVault;
-			productName = WiFiVault;
-			productReference = B10000000000000000000009 /* WiFiVault.app */;
+			name = WiFiVaultPatternLab;
+			productName = WiFiVaultPatternLab;
+			productReference = B00000000000000000000015 /* WiFiVaultPatternLab.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		E10000000000000000000002 /* Project object */ = {
+		E00000000000000000000002 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					E10000000000000000000001 = {
+					E00000000000000000000001 = {
 						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
-			buildConfigurationList = F10000000000000000000001 /* Build configuration list for PBXProject "WiFiVault" */;
+			buildConfigurationList = F00000000000000000000001 /* Build configuration list for PBXProject "WiFiVault" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -155,103 +217,86 @@
 				Base,
 				"zh-Hans",
 			);
-			mainGroup = D10000000000000000000001;
-			productRefGroup = D10000000000000000000006 /* Products */;
+			mainGroup = D00000000000000000000001;
+			productRefGroup = D00000000000000000000002 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E10000000000000000000001 /* WiFiVault */,
+				E00000000000000000000001 /* WiFiVaultPatternLab */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C10000000000000000000003 /* Resources */ = {
+		C00000000000000000000003 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10000000000000000000008 /* Assets.xcassets in Resources */,
+				A00000000000000000000012 /* Assets.xcassets in Resources */,
+				A00000000000000000000013 /* PrivacyInfo.xcprivacy in Resources */,
+				A00000000000000000000014 /* PatternLabPublicPack.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C10000000000000000000002 /* Sources */ = {
+		C00000000000000000000002 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10000000000000000000001 /* WiFiVaultApp.swift in Sources */,
-				A10000000000000000000002 /* WiFiRecord.swift in Sources */,
-				A10000000000000000000003 /* KeychainService.swift in Sources */,
-				A10000000000000000000004 /* WiFiStore.swift in Sources */,
-				A10000000000000000000005 /* ContentView.swift in Sources */,
-				A10000000000000000000006 /* WiFiRowView.swift in Sources */,
-				A10000000000000000000007 /* WiFiFormView.swift in Sources */,
-				A10000000000000000000009 /* AutoConnectManager.swift in Sources */,
-				A1000000000000000000000A /* AutoConnectSheet.swift in Sources */,
-				A1000000000000000000000B /* PasswordTesterManager.swift in Sources */,
-				A1000000000000000000000C /* PasswordTesterSheet.swift in Sources */,
-				A1000000000000000000000D /* AccessibilityAutoFillManager.swift in Sources */,
+				A00000000000000000000001 /* WiFiVaultPatternLabApp.swift in Sources */,
+				A00000000000000000000002 /* PatternLabModels.swift in Sources */,
+				A00000000000000000000003 /* PublicDatasetManifest.swift in Sources */,
+				A00000000000000000000004 /* StableHash64.swift in Sources */,
+				A00000000000000000000005 /* UTF8LineReader.swift in Sources */,
+				A00000000000000000000006 /* PatternRuleExpander.swift in Sources */,
+				A00000000000000000000007 /* StreamingGenerationEngine.swift in Sources */,
+				A00000000000000000000008 /* CommonRootIndex.swift in Sources */,
+				A00000000000000000000009 /* PasswordStructureAnalyzer.swift in Sources */,
+				A0000000000000000000000A /* RiskScoringEngine.swift in Sources */,
+				A0000000000000000000000B /* PublicResourcePackLoader.swift in Sources */,
+				A0000000000000000000000C /* PatternLabViewModel.swift in Sources */,
+				A0000000000000000000000D /* FileExportPicker.swift in Sources */,
+				A0000000000000000000000E /* PatternLabRootView.swift in Sources */,
+				A0000000000000000000000F /* GeneratorView.swift in Sources */,
+				A00000000000000000000010 /* AnalyzerView.swift in Sources */,
+				A00000000000000000000011 /* DataSourcesView.swift in Sources */,
+				A00000000000000000000016 /* TextDatasetImporter.swift in Sources */,
+				A00000000000000000000017 /* FileImportPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		G10000000000000000000001 /* Debug */ = {
+		G00000000000000000000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -259,83 +304,56 @@
 			};
 			name = Debug;
 		};
-		G10000000000000000000002 /* Release */ = {
+		G00000000000000000000002 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		G10000000000000000000003 /* Debug */ = {
+		N00000000000000000000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B00000000000000000000018 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = WiFiVault/WiFiVault.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Wi-Fi 密码库";
+				INFOPLIST_KEY_CFBundleDisplayName = "PatternLab 3";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.WiFiVault;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -345,30 +363,29 @@
 			};
 			name = Debug;
 		};
-		G10000000000000000000004 /* Release */ = {
+		N00000000000000000000002 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B00000000000000000000019 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = WiFiVault/WiFiVault.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Wi-Fi 密码库";
+				INFOPLIST_KEY_CFBundleDisplayName = "PatternLab 3";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.WiFiVault;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -381,25 +398,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F10000000000000000000001 /* Build configuration list for PBXProject "WiFiVault" */ = {
+		F00000000000000000000001 /* Build configuration list for PBXProject "WiFiVault" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				G10000000000000000000001 /* Debug */,
-				G10000000000000000000002 /* Release */,
+				G00000000000000000000001 /* Debug */,
+				G00000000000000000000002 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F10000000000000000000002 /* Build configuration list for PBXNativeTarget "WiFiVault" */ = {
+		F00000000000000000000002 /* Build configuration list for PBXNativeTarget "WiFiVaultPatternLab" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				G10000000000000000000003 /* Debug */,
-				G10000000000000000000004 /* Release */,
+				N00000000000000000000001 /* Debug */,
+				N00000000000000000000002 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = E10000000000000000000002 /* Project object */;
+	rootObject = E00000000000000000000002 /* Project object */;
 }

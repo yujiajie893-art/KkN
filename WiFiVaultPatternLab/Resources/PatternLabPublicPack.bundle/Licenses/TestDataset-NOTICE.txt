@@ -1,0 +1,4 @@
+The test_dataset.txt file was supplied by the project owner for integration and
+performance testing. It is disabled by default and excluded from common-root
+analysis. The project owner is responsible for retaining proof of redistribution
+rights before publishing an App Store build containing this fixture.

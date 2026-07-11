@@ -1,360 +1,122 @@
-name: Build Unsigned iOS IPA
+name: Build PatternLab 3.0 IPA
 
 on:
   workflow_dispatch:
-    inputs:
-      configuration:
-        description: Build configuration
-        required: true
-        default: Release
-        type: choice
-        options:
-          - Release
-          - Debug
-
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
-      - "WiFiVault/**"
+      - "WiFiVaultPatternLab/**"
       - "WiFiVault.xcodeproj/**"
+      - "PatternLabTests/**"
+      - "Tools/**"
       - ".github/workflows/build-unsigned-ipa.yml"
 
 permissions:
   contents: read
 
-concurrency:
-  group: wifi-vault-ios-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
-    name: Build WiFiVault for iPhone
+    name: Validate and build isolated iOS app
     runs-on: macos-15
     timeout-minutes: 35
-
-    env:
-      PROJECT_PATH: WiFiVault.xcodeproj
-      SCHEME: WiFiVault
-      CONFIGURATION: ${{ inputs.configuration || 'Release' }}
-      DERIVED_DATA: ${{ github.workspace }}/DerivedData
-      OUTPUT_DIR: ${{ github.workspace }}/output
-      STAGING_DIR: ${{ github.workspace }}/ipa-staging
-      SPM_CACHE_DIR: ${{ github.workspace }}/.spm-cache
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-          persist-credentials: false
 
-      - name: Prepare clean workspace
-        shell: bash
+      - name: Validate source and public pack
         run: |
-          set -euo pipefail
+          chmod +x Tools/validate-source.sh Tools/run-core-tests.sh
+          ./Tools/validate-source.sh
 
-          rm -rf \
-            "$DERIVED_DATA" \
-            "$OUTPUT_DIR" \
-            "$STAGING_DIR"
+      - name: Run optimized core and million-line benchmark
+        run: ./Tools/run-core-tests.sh
 
-          mkdir -p \
-            "$OUTPUT_DIR" \
-            "$STAGING_DIR"
-
-      - name: Record Apple build environment
-        shell: bash
+      - name: Inspect target settings
         run: |
-          set -euo pipefail
-
-          {
-            echo "Runner architecture: $(uname -m)"
-            echo
-            sw_vers
-            echo
-            xcodebuild -version
-            echo
-            echo "Selected developer directory:"
-            xcode-select -p
-            echo
-            echo "iPhoneOS SDK:"
-            xcrun --sdk iphoneos --show-sdk-version
-            xcrun --sdk iphoneos --show-sdk-path
-          } | tee "$OUTPUT_DIR/build-environment.txt"
-
-      - name: Validate Xcode project and shared scheme
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          test -d "$PROJECT_PATH"
-
           xcodebuild \
-            -project "$PROJECT_PATH" \
-            -list \
-            -json \
-            > "$OUTPUT_DIR/project-list.json"
+            -project "$GITHUB_WORKSPACE/WiFiVault.xcodeproj" \
+            -scheme WiFiVaultPatternLab \
+            -configuration Release \
+            -showBuildSettings > /tmp/patternlab-settings.txt
 
-          python3 - <<'PY'
-          import json
-          import os
-          import sys
+          grep -E "PRODUCT_BUNDLE_IDENTIFIER|IPHONEOS_DEPLOYMENT_TARGET|MARKETING_VERSION|CODE_SIGN_ENTITLEMENTS" \
+            /tmp/patternlab-settings.txt || true
 
-          project_list_path = os.path.join(
-              os.environ["OUTPUT_DIR"],
-              "project-list.json"
-          )
+          if awk -F '=' '/CODE_SIGN_ENTITLEMENTS/ { gsub(/^[[:space:]]+|[[:space:]]+$/, "", $2); if (length($2) > 0) exit 1 }' \
+            /tmp/patternlab-settings.txt; then
+            true
+          else
+            echo "Unexpected entitlements declared"
+            exit 1
+          fi
 
-          with open(project_list_path, "r", encoding="utf-8") as file:
-              data = json.load(file)
-
-          project = data.get("project", {})
-          schemes = project.get("schemes", [])
-          expected = os.environ["SCHEME"]
-
-          if expected not in schemes:
-              print(
-                  f"Shared scheme {expected!r} was not found. "
-                  f"Available schemes: {schemes}",
-                  file=sys.stderr
-              )
-              sys.exit(1)
-
-          print(f"Validated shared scheme: {expected}")
-          PY
-
+      - name: Build unsigned iPhone app
+        run: |
+          rm -rf "$GITHUB_WORKSPACE/build-patternlab"
           xcodebuild \
-            -project "$PROJECT_PATH" \
-            -scheme "$SCHEME" \
-            -configuration "$CONFIGURATION" \
-            -sdk iphoneos \
+            -project "$GITHUB_WORKSPACE/WiFiVault.xcodeproj" \
+            -scheme WiFiVaultPatternLab \
+            -configuration Release \
             -destination "generic/platform=iOS" \
-            -showBuildSettings \
-            > "$OUTPUT_DIR/build-settings.txt"
-
-      - name: Cache Swift package downloads
-        if: ${{ hashFiles('**/Package.resolved') != '' }}
-        uses: actions/cache@v4
-        with:
-          path: |
-            .spm-cache
-            ~/Library/Caches/org.swift.swiftpm
-          key: spm-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('**/Package.resolved') }}
-          restore-keys: |
-            spm-${{ runner.os }}-${{ runner.arch }}-
-
-      - name: Resolve Swift packages
-        if: ${{ hashFiles('**/Package.resolved') != '' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          xcodebuild \
-            -resolvePackageDependencies \
-            -project "$PROJECT_PATH" \
-            -scheme "$SCHEME" \
-            -clonedSourcePackagesDirPath "$SPM_CACHE_DIR"
-
-      - name: Build unsigned iPhone application
-        shell: bash
-        run: |
-          set -euo pipefail
-          set -o pipefail
-
-          RESULT_BUNDLE="$OUTPUT_DIR/WiFiVault.xcresult"
-          BUILD_LOG="$OUTPUT_DIR/xcodebuild.log"
-
-          rm -rf "$RESULT_BUNDLE"
-
-          xcodebuild \
-            -project "$PROJECT_PATH" \
-            -scheme "$SCHEME" \
-            -configuration "$CONFIGURATION" \
-            -sdk iphoneos \
-            -destination "generic/platform=iOS" \
-            -derivedDataPath "$DERIVED_DATA" \
-            -clonedSourcePackagesDirPath "$SPM_CACHE_DIR" \
-            -resultBundlePath "$RESULT_BUNDLE" \
-            -parallelizeTargets \
+            -derivedDataPath "$GITHUB_WORKSPACE/build-patternlab" \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
-            CODE_SIGN_ENTITLEMENTS="" \
-            DEVELOPMENT_TEAM="" \
-            PROVISIONING_PROFILE_SPECIFIER="" \
-            ONLY_ACTIVE_ARCH=NO \
-            COMPILER_INDEX_STORE_ENABLE=NO \
-            ENABLE_BITCODE=NO \
-            clean build \
-            2>&1 | tee "$BUILD_LOG"
+            clean build
 
-      - name: Validate and package unsigned IPA
-        id: package
-        shell: bash
+      - name: Validate built product isolation and resources
         run: |
-          set -euo pipefail
+          APP_PATH="$GITHUB_WORKSPACE/build-patternlab/Build/Products/Release-iphoneos/WiFiVaultPatternLab.app"
+          test -d "$APP_PATH"
+          test -f "$APP_PATH/Info.plist"
+          test -f "$APP_PATH/PrivacyInfo.xcprivacy"
+          test -f "$APP_PATH/PatternLabPublicPack.bundle/manifest.json"
 
-          APP_PATH="$(
-            find "$DERIVED_DATA/Build/Products" \
-              -type d \
-              -name "WiFiVault.app" \
-              -path "*-iphoneos/*" \
-              -print \
-              | head -n 1
-          )"
+          EXECUTABLE_NAME="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$APP_PATH/Info.plist")"
+          test -f "$APP_PATH/$EXECUTABLE_NAME"
 
-          if [ -z "$APP_PATH" ] || [ ! -d "$APP_PATH" ]; then
-            echo "No iPhone .app product was found." >&2
+          if otool -L "$APP_PATH/$EXECUTABLE_NAME" | grep -q NetworkExtension; then
+            echo "Executable unexpectedly links NetworkExtension"
+            exit 1
+          fi
+          if strings "$APP_PATH/$EXECUTABLE_NAME" | grep -E \
+            "NEHotspotConfigurationManager|AutoConnectManager|ContinuousVerificationManager|PasswordTesterManager"; then
+            echo "Executable contains a forbidden verification symbol"
             exit 1
           fi
 
-          INFO_PLIST="$APP_PATH/Info.plist"
+          node Tools/validate-public-pack.mjs "$APP_PATH/PatternLabPublicPack.bundle"
+          echo "APP_PATH=$APP_PATH" >> "$GITHUB_ENV"
 
-          if [ ! -f "$INFO_PLIST" ]; then
-            echo "Built app does not contain Info.plist." >&2
-            exit 1
-          fi
+      - name: Package unsigned IPA and metadata
+        run: |
+          rm -rf "$GITHUB_WORKSPACE/Payload"
+          mkdir -p "$GITHUB_WORKSPACE/Payload"
+          /usr/bin/ditto "$APP_PATH" "$GITHUB_WORKSPACE/Payload/WiFiVaultPatternLab.app"
 
-          EXECUTABLE="$(
-            /usr/libexec/PlistBuddy \
-              -c "Print :CFBundleExecutable" \
-              "$INFO_PLIST"
-          )"
+          cd "$GITHUB_WORKSPACE"
+          /usr/bin/ditto -c -k --sequesterRsrc --keepParent Payload PatternLab-3.0-unsigned.ipa
+          unzip -t PatternLab-3.0-unsigned.ipa
+          shasum -a 256 PatternLab-3.0-unsigned.ipa | tee PatternLab-3.0-unsigned.sha256
 
-          BUNDLE_ID="$(
-            /usr/libexec/PlistBuddy \
-              -c "Print :CFBundleIdentifier" \
-              "$INFO_PLIST"
-          )"
-
-          VERSION="$(
-            /usr/libexec/PlistBuddy \
-              -c "Print :CFBundleShortVersionString" \
-              "$INFO_PLIST"
-          )"
-
-          BUILD_NUMBER="$(
-            /usr/libexec/PlistBuddy \
-              -c "Print :CFBundleVersion" \
-              "$INFO_PLIST"
-          )"
-
-          MINIMUM_OS="$(
-            /usr/libexec/PlistBuddy \
-              -c "Print :MinimumOSVersion" \
-              "$INFO_PLIST" \
-              2>/dev/null \
-              || echo "Not declared"
-          )"
-
-          EXECUTABLE_PATH="$APP_PATH/$EXECUTABLE"
-
-          if [ ! -f "$EXECUTABLE_PATH" ]; then
-            echo "Built application executable is missing." >&2
-            exit 1
-          fi
-
-          ARCHITECTURES="$(
-            lipo -archs "$EXECUTABLE_PATH" 2>/dev/null \
-              || file "$EXECUTABLE_PATH"
-          )"
-
-          APP_NAME="$(basename "$APP_PATH")"
-          PAYLOAD_DIR="$STAGING_DIR/Payload"
-          STAGED_APP="$PAYLOAD_DIR/$APP_NAME"
-
-          rm -rf "$STAGING_DIR"
-          mkdir -p "$PAYLOAD_DIR"
-
-          /usr/bin/ditto "$APP_PATH" "$STAGED_APP"
-
-          find "$STAGED_APP" \
-            -type d \
-            -name "_CodeSignature" \
-            -prune \
-            -exec rm -rf {} +
-
-          find "$STAGED_APP" \
-            -type f \
-            -name "embedded.mobileprovision" \
-            -delete
-
-          IPA_NAME="WiFiVault-${CONFIGURATION}-unsigned-${GITHUB_RUN_NUMBER}.ipa"
-          IPA_PATH="$OUTPUT_DIR/$IPA_NAME"
-
-          (
-            cd "$STAGING_DIR"
-            /usr/bin/ditto \
-              -c \
-              -k \
-              --sequesterRsrc \
-              --keepParent \
-              Payload \
-              "$IPA_PATH"
-          )
-
-          unzip -t "$IPA_PATH"
-
-          (
-            cd "$OUTPUT_DIR"
-            shasum -a 256 "$IPA_NAME" > "$IPA_NAME.sha256"
-          )
-
+          IPA_BYTES="$(stat -f %z PatternLab-3.0-unsigned.ipa)"
+          APP_BYTES="$(du -sk "$APP_PATH" | awk '{print $1 * 1024}')"
           {
-            echo "App: $APP_NAME"
-            echo "Bundle identifier: $BUNDLE_ID"
-            echo "Version: $VERSION"
-            echo "Build number: $BUILD_NUMBER"
-            echo "Minimum iOS: $MINIMUM_OS"
-            echo "Architectures: $ARCHITECTURES"
-            echo "Configuration: $CONFIGURATION"
-            echo "Commit: $GITHUB_SHA"
-            echo "Workflow run: $GITHUB_RUN_NUMBER"
-            echo "Runner: $RUNNER_OS / $RUNNER_ARCH"
-            echo "IPA: $IPA_NAME"
-          } | tee "$OUTPUT_DIR/build-metadata.txt"
+            echo "Marketing version: 3.0.0"
+            echo "Build number: 300"
+            echo "Unsigned IPA bytes: $IPA_BYTES"
+            echo "Uncompressed app bytes: $APP_BYTES"
+            echo "Built at: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } | tee PatternLab-3.0-build-metadata.txt
 
-          {
-            echo "## WiFiVault unsigned IPA"
-            echo
-            echo "| Item | Value |"
-            echo "|---|---|"
-            echo "| Bundle ID | \`$BUNDLE_ID\` |"
-            echo "| Version | \`$VERSION ($BUILD_NUMBER)\` |"
-            echo "| Minimum iOS | \`$MINIMUM_OS\` |"
-            echo "| Architectures | \`$ARCHITECTURES\` |"
-            echo "| Configuration | \`$CONFIGURATION\` |"
-            echo "| Artifact file | \`$IPA_NAME\` |"
-            echo
-            echo "> This IPA is unsigned and must be signed before installation on an iPhone or iPad."
-          } >> "$GITHUB_STEP_SUMMARY"
-
-          echo "ipa_name=$IPA_NAME" >> "$GITHUB_OUTPUT"
-
-      - name: Upload unsigned IPA
+      - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: WiFiVault-Unsigned-IPA-${{ github.run_number }}
+          name: PatternLab-3.0-unsigned-IPA
           path: |
-            output/*.ipa
-            output/*.sha256
-            output/build-metadata.txt
+            PatternLab-3.0-unsigned.ipa
+            PatternLab-3.0-unsigned.sha256
+            PatternLab-3.0-build-metadata.txt
           if-no-files-found: error
-          compression-level: 0
           retention-days: 14
-
-      - name: Upload build diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: WiFiVault-Build-Diagnostics-${{ github.run_number }}
-          path: |
-            output/build-environment.txt
-            output/project-list.json
-            output/build-settings.txt
-            output/xcodebuild.log
-            output/*.xcresult
-          if-no-files-found: warn
-          compression-level: 6
-          retention-days: 7
