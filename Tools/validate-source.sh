@@ -6,10 +6,12 @@ cd "$ROOT_DIR"
 
 node Tools/validate-public-pack.mjs
 
+# 只扫描真正编译进 3.0 主 App 的源码。
+# Legacy 2.4.1 名称允许保留在仓库和工程结构中，但不得进入主 Target。
 if rg -n \
   'NEHotspot|NetworkExtension|AutoConnectManager|ContinuousVerificationManager|AccessibilityAutoFillManager|PasswordTesterManager|URLSession|NWConnection' \
-  WiFiVaultPatternLab WiFiVault.xcodeproj; then
-  echo "Forbidden network or verification symbol found"
+  WiFiVaultPatternLab; then
+  echo "Forbidden network or verification symbol found in active app sources"
   exit 1
 fi
 
