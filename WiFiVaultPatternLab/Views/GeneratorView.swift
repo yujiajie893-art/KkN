@@ -1,4 +1,6 @@
 import SwiftUI
+import Foundation
+import UIKit
 
 struct GeneratorView: View {
     @ObservedObject var model: PatternLabViewModel
