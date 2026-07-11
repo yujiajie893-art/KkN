@@ -24,6 +24,9 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
+      - name: Install validation dependencies
+        run: brew install ripgrep
+
       - name: Validate source and public pack
         run: |
           chmod +x Tools/validate-source.sh Tools/run-core-tests.sh
