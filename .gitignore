@@ -1,8 +1,0 @@
-.build/
-build-patternlab/
-DerivedData/
-Payload/
-*.ipa
-*.xcarchive
-xcuserdata/
-.DS_Store
