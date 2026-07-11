@@ -1,0 +1,77 @@
+name: Build PatternLab IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build unsigned iPhone IPA
+    runs-on: macos-15
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Build unsigned iPhone app
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          DERIVED_DATA="$RUNNER_TEMP/PatternLabDerivedData"
+          rm -rf "$DERIVED_DATA"
+
+          xcodebuild \
+            -project "$GITHUB_WORKSPACE/WiFiVault.xcodeproj" \
+            -scheme WiFiVaultPatternLab \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination "generic/platform=iOS" \
+            -derivedDataPath "$DERIVED_DATA" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            clean build
+
+          APP_PATH="$DERIVED_DATA/Build/Products/Release-iphoneos/WiFiVaultPatternLab.app"
+
+          if [ ! -d "$APP_PATH" ]; then
+            echo "Built app not found: $APP_PATH"
+            exit 1
+          fi
+
+          cd "$GITHUB_WORKSPACE"
+          rm -rf Payload PatternLab-3.0-unsigned.ipa
+          mkdir -p Payload
+
+          /usr/bin/ditto \
+            "$APP_PATH" \
+            "Payload/WiFiVaultPatternLab.app"
+
+          /usr/bin/ditto \
+            -c \
+            -k \
+            --sequesterRsrc \
+            --keepParent \
+            Payload \
+            PatternLab-3.0-unsigned.ipa
+
+          unzip -t PatternLab-3.0-unsigned.ipa
+          shasum -a 256 PatternLab-3.0-unsigned.ipa
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: PatternLab-3.0-unsigned-IPA
+          path: PatternLab-3.0-unsigned.ipa
+          if-no-files-found: error
+          retention-days: 14
