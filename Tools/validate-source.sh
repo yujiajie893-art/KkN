@@ -8,7 +8,7 @@ node Tools/validate-public-pack.mjs
 
 # 只扫描真正编译进 3.0 主 App 的源码。
 # Legacy 2.4.1 名称允许保留在仓库和工程结构中，但不得进入主 Target。
-if rg -n \
+if grep -Rn \
   'NEHotspot|NetworkExtension|AutoConnectManager|ContinuousVerificationManager|AccessibilityAutoFillManager|PasswordTesterManager|URLSession|NWConnection' \
   WiFiVaultPatternLab; then
   echo "Forbidden network or verification symbol found in active app sources"
@@ -19,16 +19,16 @@ test "$(find WiFiVaultPatternLab -name '*.swift' | wc -l | tr -d ' ')" -eq 19
 
 while IFS= read -r source; do
   basename="$(basename "$source")"
-  rg -q "path = $basename;" WiFiVault.xcodeproj/project.pbxproj || {
+  grep -q "path = $basename;" WiFiVault.xcodeproj/project.pbxproj || {
     echo "Project does not reference $source"
     exit 1
   }
 done < <(find WiFiVaultPatternLab -name '*.swift' | sort)
 
-rg -q 'MARKETING_VERSION = 3.0.0;' WiFiVault.xcodeproj/project.pbxproj
-rg -q 'IPHONEOS_DEPLOYMENT_TARGET = 16.0;' WiFiVault.xcodeproj/project.pbxproj
-rg -q 'PatternLabPublicPack.bundle in Resources' WiFiVault.xcodeproj/project.pbxproj
-rg -q 'PrivacyInfo.xcprivacy in Resources' WiFiVault.xcodeproj/project.pbxproj
+grep -q 'MARKETING_VERSION = 3.0.0;' WiFiVault.xcodeproj/project.pbxproj
+grep -q 'IPHONEOS_DEPLOYMENT_TARGET = 16.0;' WiFiVault.xcodeproj/project.pbxproj
+grep -q 'PatternLabPublicPack.bundle in Resources' WiFiVault.xcodeproj/project.pbxproj
+grep -q 'PrivacyInfo.xcprivacy in Resources' WiFiVault.xcodeproj/project.pbxproj
 
 if [[ -f SOURCE-MANIFEST.sha256 ]]; then
   sha256sum --check --quiet SOURCE-MANIFEST.sha256
